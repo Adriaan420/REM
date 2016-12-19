@@ -1,11 +1,11 @@
 <?php
 
-    class Nuclearplant extends Energysource {
+    class NuclearPlant extends EnergySource {
 
         var $nuclear = 0;
         var $energising = 0;
 
-        function setNuclear($nuclear) {
+        public function setNuclear($nuclear) {
             return $this->nuclear = $nuclear;
         }
 
@@ -13,7 +13,7 @@
             return $this->energising = $energising;
         }
 
-        function getNuclear() {
+        public function getNuclear() {
             return $this->nuclear;
         }
 

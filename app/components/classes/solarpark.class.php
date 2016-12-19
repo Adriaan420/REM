@@ -1,6 +1,6 @@
 <?php
 
-    class Solarpark extends Energysource {
+    class SolarPark extends EnergySource {
 
         var $solarpower = 0;
         var $energising = 0;

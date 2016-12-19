@@ -1,12 +1,12 @@
 <?php
 
-    class Windpark extends Energysource {
+    class WindPark extends EnergySource {
 
         var $windpower = 0;
         var $energising = 0;
         var $store = 0;
 
-        function setWindpower($windpower) {
+        public function setWindPower($windpower) {
             return $this->windpower = $windpower;
         }
 
@@ -14,7 +14,7 @@
             return $this->energising = $energising;
         }
 
-        function getWindpower() {
+        function getWindPower() {
             return $this->windpower;
         }
 

@@ -1,30 +1,39 @@
 <?php
 
-    class Coalpowerplant extends Energysource{
+    class CoalPowerplant extends EnergySource{
 
-        var $coal = 0;
-        var $energising = 0;
+        var $green = 0;
+        var $gray = 0;
 
-        function setCoal($coal) {
-            return $this->coal = $coal;
+        public function getGreen(){
+            return $this->green;
         }
 
-        public function setEnergising($energising){
-            return $this->energising = $energising;
+        public function getGray(){
+            return $this->gray;
         }
 
-        function getCoal() {
-            return $this->coal;
+        public function calculateEnergising(Consumer $consumer){
+            return $this->energising = $consumer->getTotalDemand() / 100 * $consumer->getCoalDemand();
         }
 
-        public function getEnergising(){
-            return $this->energising;
+        public function calculateGreen(){
+            return $this->energising / 100 * $this->green;
         }
 
-        public function calculateEnergising(){
-
+        public function calculateGray(){
+            return $this->energising / 100 * $this->gray;
         }
 
+        public function calculateCO2green(){
+            $kwgreen = $this->calculateGreen();
+            //calculate co2 green with formula
+        }
+
+        public function calculateCO2gray(){
+            $kwgray = $this->calculateGray();
+            //calculate co2 gray with formula
+        }
     }
 
 ?>
