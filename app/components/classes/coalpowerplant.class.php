@@ -1,6 +1,6 @@
 <?php
 
-    class Coalpowerpplant extends Energysource{
+    class Coalpowerplant extends Energysource{
 
         var $coal = 0;
         var $energising = 0;
