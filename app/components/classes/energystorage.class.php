@@ -1,56 +1,56 @@
 <?php
 
-    class Energystorage {
+    class EnergyStorage {
 
         var $capacity = 0;
         var $filledcapacity = 0;
         var $suncapacity = 0;
         var $windcapacity = 0;
 
-        function setCapacity($capacity){
+        public function setCapacity($capacity){
             return $this->capacity = $capacity;
         }
 
-        function setFilledCapacity($filledcapacity){
+        public function setFilledCapacity($filledcapacity){
             return $this->filledcapacity = $filledcapacity;
         }
 
-        function setCapacitySun(Sunpark $sunpark){
+        public function setCapacitySun(SunPark $sunpark){
             return $this->suncapacity = $this->suncapacity + $sunpark->fillEnergyStorage();
         }
 
-        function setCapacityWind(Windpark $windpark){
+        public function setCapacityWind(WindPark $windpark){
             return $this->windcapacity = $this->windcapacity + $windpark->fillEnergyStorage();
         }
 
-        function getCapacity(){
+        public function getCapacity(){
             return $this->capacity;
         }
 
-        function getFilledCapacity(){
+        public function getFilledCapacity(){
             return $this->filledcapacity;
         }
 
-        function getCapacitySun(){
+        public function getCapacitySun(){
             return $this->suncapacity;
         }
 
-        function getCapacityWind(){
+        public function getCapacityWind(){
             return $this->windcapacity;
         }
 
-        function getPercentageFilled(){
+        public function getPercentageFilled(){
             return $this->getFilledcapacity() / $this->getCapacity() * 100;
         }
 
-        function transferSun($transfer){
+        public function transferSun($transfer){
             if ($transfer > $this->getCapacitySun()){
                 $transfer = $this->getCapacitySun();
             }
             return $transfer;
         }
 
-        function transferWind($transfer){
+        public function transferWind($transfer){
             if ($transfer > $this->getCapacityWind()){
                 $transfer = $this->getCapacityWind();
             }
