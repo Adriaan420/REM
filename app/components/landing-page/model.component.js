@@ -1,5 +1,5 @@
 /**
- * Created by Jan on 14-12-2016.
+ * Created by Danny on 14-12-2016.
  */
 'use strict';
 

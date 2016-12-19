@@ -1,13 +1,29 @@
-<div class="container-fluid">
+<div ng-controller="SideMenu" class="container-fluid">
     <div class="row" style="height: 80px; border-bottom: solid;">
         <div class="col-md-2"><img src="app/components/images/dnvlogo.png" style="height: auto; width: 160px;"></div>
         <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
         <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
         <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
         <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
-        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: right;">
+            <i ng-click="toggleLeft()" class="fa fa-bars fa-3x" aria-hidden="true"></i>
+        </div>
     </div>
 </div>
 <div ng-controller="AppCtrl" class="container-fluid">
-        <i ng-click="showAlert($event)" class="fa fa-info-circle fa-5x" aria-hidden="true"></i>
+    <i ng-click="showAlert($event)" class="fa fa-info-circle fa-5x" aria-hidden="true"></i>
+</div>
+<div ng-controller="SideMenu">
+    <section layout="row">
+        <md-sidenav class="md-sidenav-right" md-component-id="left">
+                <i ng-click="toggleLeft()" class="fa fa-times fa-3x" aria-hidden="true"></i>
+            <md-content>
+                <p>
+                    This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
+                </p>
+            </md-content>
+        </md-sidenav>
+    </section>
+
 </div>

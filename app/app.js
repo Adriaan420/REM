@@ -3,7 +3,9 @@
 //  define the 'REM' module used on the webpage.
 angular.module('REM', [
     //  ...which depends on the 'landingPage' module
-    'landingPage',
     'ngRoute',
-    'ngMaterial'
+    'ngMaterial',
+    'ngMessages',
+    'ngAria',
+    'landingPage'
 ])

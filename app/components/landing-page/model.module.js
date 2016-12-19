@@ -3,10 +3,10 @@
  */
 'use strict';
 
+var app = angular.module('landingPage', ['ngMaterial','ngMessages'])
 //  define the 'landingPage' module
-angular.module('landingPage', [])
 
-    .controller('AppCtrl', function($scope, $mdDialog) {
+        app.controller('AppCtrl', function($scope, $mdDialog) {
         $scope.status = '  ';
         $scope.customFullscreen = false;
 
@@ -25,3 +25,14 @@ angular.module('landingPage', [])
             );
         };
     });
+        app.controller('SideMenu', function ($scope, $timeout, $mdSidenav) {
+        $scope.toggleLeft = buildToggler('left');
+        $scope.toggleRight = buildToggler('right');
+
+        function buildToggler(componentId) {
+            return function() {
+                $mdSidenav(componentId).toggle();
+            }
+        }
+    });
+
