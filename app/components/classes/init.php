@@ -1,0 +1,11 @@
+<?php
+    include_once("energysource.class.php");
+    include_once("co2mitigation.class.php");
+    include_once("coalpowerplant.class.php");
+    include_once("consumer.class.php");
+    include_once("energystorage.class.php");
+    include_once("naturalgas.class.php");
+    include_once("nuclearplant.class.php");
+    include_once("solarpark.class.php");
+    include_once("windpark.class.php");
+?>
