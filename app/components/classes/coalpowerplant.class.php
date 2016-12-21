@@ -1,5 +1,4 @@
 <?php
-
     class CoalPowerplant extends EnergySource{
 
         var $green = 0;
@@ -11,6 +10,14 @@
 
         public function getGray(){
             return $this->gray;
+        }
+
+        public function setGreen($green){
+            return $this->green = $green;
+        }
+
+        public function setGray($gray){
+            return $this->gray = $gray;
         }
 
         public function calculateEnergising(Consumer $consumer){
