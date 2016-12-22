@@ -8,4 +8,5 @@
     include_once("nuclearplant.class.php");
     include_once("solarpark.class.php");
     include_once("windpark.class.php");
+    include_once("environment.class.php");
 ?>
