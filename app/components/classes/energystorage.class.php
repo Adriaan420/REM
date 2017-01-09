@@ -19,8 +19,8 @@
             return $this->suncapacity = $this->suncapacity + $sunpark->fillEnergyStorage();
         }
 
-        public function setCapacityWind(WindPark $windpark){
-            return $this->windcapacity = $this->windcapacity + $windpark->fillEnergyStorage();
+        public function setCapacityWind($windcapacity){
+            $this->windcapacity = $windcapacity;
         }
 
         public function getCapacity(){
@@ -50,11 +50,30 @@
             return $transfer;
         }
 
-        public function transferWind($transfer){
-            if ($transfer > $this->getCapacityWind()){
-                $transfer = $this->getCapacityWind();
+        public function pushWind($push){
+            if ($this->windcapacity + $this->suncapacity <= $this->capacity){
+                $this->windcapacity = $this->windcapacity + $push;
             }
-            return $transfer;
+            if ($this->windcapacity + $push > $this->capacity - $this->suncapacity){
+                $this->windcapacity = $this->capacity - $this->suncapacity;
+            }
+        }
+
+        public function pullWind($pull){
+            $giveBack = 0;
+            $test = $pull;
+            $pull = abs($pull);
+            if ($this->windcapacity > 0){
+                if (($this->windcapacity - $pull) < 0){
+                    $giveBack = $this->windcapacity;
+                    $this->windcapacity = 0;
+                }
+                else{
+                    $giveBack = $pull;
+                    $this->windcapacity = $this->windcapacity - $giveBack;
+                }
+            }
+            return $giveBack;
         }
 
     }

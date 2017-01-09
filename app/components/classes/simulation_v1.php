@@ -3,9 +3,9 @@
 
     $consumer = new Consumer();
 
-    $totaldemand = $consumer->setTotalDemand(100);
-    $winddemandpercentage = $consumer->setWindDemand(20);
-    $coaldemandpercentage = $consumer->setCoalDemand(30);
+    $totaldemand = $consumer->setTotalDemand(100000);
+    $winddemandpercentage = $consumer->setWindDemand(30);
+    $coaldemandpercentage = $consumer->setCoalDemand(20);
     $gasdemandpercentage = $consumer->setGasDemand(20);
     $nucleardemandpercentage = $consumer->setNuclearDemand(20);
     $solardemandpercentage = $consumer->setSolarDemand(10);
@@ -16,11 +16,20 @@
     $naturalgas = new NaturalGas();
     $nuclearplant = new NuclearPlant();
     $enviroment = new Environment();
+    $energystorage = new EnergyStorage();
 
     $time = $enviroment->setTime(12,00);
     $temperature = $enviroment->setTemperature(15);
-    $windspeed = $enviroment->setWindspeed(500);
+    $windspeed = $enviroment->setWindspeed(7);
     $solarstrength = $enviroment->setSolarstrenght(10);
+
+    $numberswindmills = $windpark->setNumberOfWindmills(12);
+
+    $capacity = $energystorage->setCapacity(16000);
+    $windcapacity = $energystorage->setCapacityWind(15000);
+
+    echo "Storage wind: " . $energystorage->getCapacityWind();
+    echo "</br>";
 
     $coaldemand = $coalpowerplant->calculateEnergising($consumer);
     $coaldemandpercentagegreen = $coalpowerplant->setGreen(20);
@@ -28,7 +37,7 @@
     $coaldemandgreen = $coalpowerplant->calculateGreen();
     $coaldemandgray = $coalpowerplant->calculateGray();
 
-    $winddemand = $windpark->calculateEnergising($consumer);
+    $winddemand = $windpark->calculateEnergising($consumer, $energystorage, $enviroment);
     $solardemand = $solarpark->calculateEnergising($consumer);
     $naturalgasdemand = $naturalgas->calculateEnergising($consumer);
     $nuclearplantdemand = $nuclearplant->calculateEnergising($consumer);
@@ -56,4 +65,8 @@
     echo "Naturalgas kWh: " .$naturalgasdemand;
     echo "</br>";
     echo "Nuclearplant kWh: " .$nuclearplantdemand;
+    echo "</br>";
+    echo "Storage wind: " . $energystorage->getCapacityWind();
+    echo "</br>";
+    echo "Production wind: " . $windpark->getPowerGenerated();
 ?>
