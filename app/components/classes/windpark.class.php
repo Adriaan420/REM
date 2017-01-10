@@ -87,6 +87,7 @@
             if ($difference > 0){
                 $energyStorage->pushWind($difference);
             }
+            return $difference;
         }
     }
 

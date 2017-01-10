@@ -3,6 +3,7 @@
 
         var $green = 0;
         var $gray = 0;
+        var $outputCO2Coal = 0.909;
 
         public function getGreen(){
             return $this->green;
@@ -33,13 +34,12 @@
         }
 
         public function calculateCO2green(){
-            $kwgreen = $this->calculateGreen();
-            //calculate co2 green with formula
+            //Output CO2 Coal: 909 grams(0,909 KG) / kWh. Source: http://blueskymodel.org/kilowatt-hour
+            return $this->outputCO2Coal * $this->calculateGreen();
         }
 
         public function calculateCO2gray(){
-            $kwgray = $this->calculateGray();
-            //calculate co2 gray with formula
+            return $this->outputCO2Coal * $this->calculateGray();
         }
     }
 

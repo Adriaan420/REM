@@ -4,7 +4,7 @@
 
         var $capacity = 0;
         var $filledcapacity = 0;
-        var $suncapacity = 0;
+        var $solarcapacity = 0;
         var $windcapacity = 0;
 
         public function setCapacity($capacity){
@@ -15,8 +15,8 @@
             return $this->filledcapacity = $filledcapacity;
         }
 
-        public function setCapacitySun(SunPark $sunpark){
-            return $this->suncapacity = $this->suncapacity + $sunpark->fillEnergyStorage();
+        public function setCapacitySolar($solarcapacity){
+            $this->solarcapacity = $solarcapacity;
         }
 
         public function setCapacityWind($windcapacity){
@@ -31,8 +31,8 @@
             return $this->filledcapacity;
         }
 
-        public function getCapacitySun(){
-            return $this->suncapacity;
+        public function getCapacitySolar(){
+            return $this->solarcapacity;
         }
 
         public function getCapacityWind(){
@@ -43,25 +43,17 @@
             return $this->getFilledcapacity() / $this->getCapacity() * 100;
         }
 
-        public function transferSun($transfer){
-            if ($transfer > $this->getCapacitySun()){
-                $transfer = $this->getCapacitySun();
-            }
-            return $transfer;
-        }
-
         public function pushWind($push){
-            if ($this->windcapacity + $this->suncapacity <= $this->capacity){
-                $this->windcapacity = $this->windcapacity + $push;
+            if ($this->windcapacity + $push > $this->capacity - $this->solarcapacity){
+                $this->windcapacity = $this->capacity - $this->solarcapacity;
             }
-            if ($this->windcapacity + $push > $this->capacity - $this->suncapacity){
-                $this->windcapacity = $this->capacity - $this->suncapacity;
+            elseif ($this->windcapacity + $this->solarcapacity <= $this->capacity){
+                $this->windcapacity = $this->windcapacity + $push;
             }
         }
 
         public function pullWind($pull){
             $giveBack = 0;
-            $test = $pull;
             $pull = abs($pull);
             if ($this->windcapacity > 0){
                 if (($this->windcapacity - $pull) < 0){
@@ -71,6 +63,31 @@
                 else{
                     $giveBack = $pull;
                     $this->windcapacity = $this->windcapacity - $giveBack;
+                }
+            }
+            return $giveBack;
+        }
+
+        public function pushSolar($push){
+            if ($this->solarcapacity + $push > $this->capacity - $this->windcapacity){
+                $this->solarcapacity = $this->capacity - $this->windcapacity;
+            }
+            elseif ($this->solarcapacity + $this->windcapacity <= $this->capacity){
+                $this->solarcapacity = $this->solarcapacity + $push;
+            }
+        }
+
+        public function pullSolar($pull){
+            $giveBack = 0;
+            $pull = abs($pull);
+            if ($this->solarcapacity > 0){
+                if (($this->solarcapacity - $pull) < 0){
+                    $giveBack = $this->solarcapacity;
+                    $this->solarcapacity = 0;
+                }
+                else{
+                    $giveBack = $pull;
+                    $this->solarcapacity = $this->solarcapacity - $giveBack;
                 }
             }
             return $giveBack;

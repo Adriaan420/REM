@@ -3,22 +3,52 @@
 
         var $solarpower = 0;
         var $store = 0;
+        var $squaremeters = 0;
+        var $generateOneSquareMeter = 0;
+        var $powerGenerated = 0;
 
-        function setSolarpower($solarpower) {
+        public function setSolarpower($solarpower) {
             return $this->solarpower = $solarpower;
         }
 
-        function getSolarpower() {
+        public function setSquareMeters($squaremeters){
+            return $this->squaremeters = $squaremeters;
+        }
+
+        public function setPowerGenerated() {
+            return $this->powerGenerated = $this->generateOneSquareMeter * $this->squaremeters;
+        }
+
+        public function getSolarpower() {
             return $this->solarpower;
         }
 
-        public function calculateEnergising(Consumer $consumer){
-            return $this->energising = $consumer->getTotalDemand() / 100 * $consumer->getSolarDemand();
+        public function getSquareMeters(){
+            return$this->squaremeters;
         }
 
-        public function fillEnergyStorage(){
-            return $this->store;
+        function getPowerGenerated() {
+            return $this->powerGenerated;
         }
+
+        public function powerGeneratedOneSquareMeter(Environment $environment){
+            //Source power generated one square meter: https://www.bespaarbazaar.nl/kenniscentrum/financieel/zonnepanelen-opbrengst/
+            //125 / 365 / 24
+            $onesquare = 0.014;
+            return $this->generateOneSquareMeter = $onesquare * ($environment->getSolarstrenght() / 100);
+        }
+
+        public function calculateEnergising(Consumer $consumer, EnergyStorage $energyStorage, Environment $environment){
+            $this->powerGeneratedOneSquareMeter($environment);
+            $this->setPowerGenerated();
+            $difference = $this->getPowerGenerated() - (($consumer->getTotalDemand() / 100) * $consumer->getSolarDemand());
+            if ($difference < 0){
+                $energyStorage->pullSolar($difference);
+            }
+            if ($difference > 0){
+                $energyStorage->pushSolar($difference);
+            }
+            return $difference;}
 
     }
 
