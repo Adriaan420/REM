@@ -11,11 +11,11 @@
             return $this->windpower = $windpower;
         }
 
-        function setNumberOfWindmills($numberOfWindmills) {
+        public function setNumberOfWindmills($numberOfWindmills) {
             return $this->numberOfWindmills = $numberOfWindmills;
         }
 
-        function powerGeneratedOneWindmill(Environment $environment){
+        public function powerGeneratedOneWindmill(Environment $environment){
             switch ($environment->getWindspeed()) {
                 //Windmolen gebruikt NEG Micon 2750/92 Bron:http://www.motiva.fi/myllarin_tuulivoima/windpower%20web/en/tour/wres/pow/index.htm
                 case 0:
@@ -65,15 +65,15 @@
             }
         }
 
-        function setPowerGenerated() {
+        public function setPowerGenerated() {
             return $this->powerGenerated = $this->numberOfWindmills * $this->generatePowerOneWindmill;
         }
 
-        function getWindPower() {
+        public function getWindPower() {
             return $this->windpower;
         }
 
-        function getPowerGenerated() {
+        public function getPowerGenerated() {
             return $this->powerGenerated;
         }
 
@@ -82,12 +82,12 @@
             $this->setPowerGenerated();
             $difference = $this->getPowerGenerated() - (($consumer->getTotalDemand() / 100) * $consumer->getWindDemand());
             if ($difference < 0){
-                $energyStorage->pullWind($difference);
+                $transfer = -$energyStorage->pullWind($difference);
             }
             if ($difference > 0){
-                $energyStorage->pushWind($difference);
+                $transfer = $energyStorage->pushWind($difference);
             }
-            return $difference;
+            return $transfer;
         }
     }
 

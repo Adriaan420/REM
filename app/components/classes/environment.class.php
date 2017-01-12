@@ -8,7 +8,7 @@
         var $hours = 0;
         var $minutes = 0;
 
-        public function setSolarstrenght($solarstrenght){
+        public function setSolarStrenght($solarstrenght){
             return $this->solarstrenght = $solarstrenght;
         }
 
@@ -16,7 +16,7 @@
             return $this->temperature = $temperature;
         }
 
-        public function setWindspeed($windspeed){
+        public function setWindSpeed($windspeed){
             return $this->windspeed = $windspeed;
         }
 
@@ -34,7 +34,7 @@
             return $this->minutes = $minutes;
         }
 
-        public function getSolarstrenght(){
+        public function getSolarStrenght(){
             return $this->solarstrenght;
         }
 
@@ -42,7 +42,7 @@
             return $this->temperature;
         }
 
-        public function getWindspeed(){
+        public function getWindSpeed(){
             return $this->windspeed;
         }
 

@@ -45,11 +45,13 @@
 
         public function pushWind($push){
             if ($this->windcapacity + $push > $this->capacity - $this->solarcapacity){
+                $push = $this->capacity - $this->solarcapacity;
                 $this->windcapacity = $this->capacity - $this->solarcapacity;
             }
             elseif ($this->windcapacity + $this->solarcapacity <= $this->capacity){
                 $this->windcapacity = $this->windcapacity + $push;
             }
+            return $push;
         }
 
         public function pullWind($pull){
@@ -70,11 +72,13 @@
 
         public function pushSolar($push){
             if ($this->solarcapacity + $push > $this->capacity - $this->windcapacity){
+                $push = $this->capacity - $this->windcapacity;
                 $this->solarcapacity = $this->capacity - $this->windcapacity;
             }
             elseif ($this->solarcapacity + $this->windcapacity <= $this->capacity){
                 $this->solarcapacity = $this->solarcapacity + $push;
             }
+            return $push;
         }
 
         public function pullSolar($pull){

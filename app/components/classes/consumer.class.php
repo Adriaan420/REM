@@ -4,7 +4,7 @@
 
         var $totaldemand = 0;
         var $coaldemand = 0;
-        var $gasdemand = 0;
+        var $naturalgasdemand = 0;
         var $nucleardemand = 0;
         var $winddemand = 0;
         var $solardemand = 0;
@@ -17,8 +17,8 @@
             return $this->coaldemand;
         }
 
-        public function getGasDemand(){
-            return $this->gasdemand;
+        public function getNaturalGasDemand(){
+            return $this->naturalgasdemand;
         }
 
         public function getNuclearDemand(){
@@ -41,8 +41,8 @@
             return $this->coaldemand = $coaldemand;
         }
 
-        public function setGasDemand($gasdemand){
-            return $this->gasdemand = $gasdemand;
+        public function setNaturalGasDemand($naturalgasdemand){
+            return $this->naturalgasdemand = $naturalgasdemand;
         }
 
         public function setNuclearDemand($nucleardemand){

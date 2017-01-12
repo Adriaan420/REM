@@ -27,7 +27,7 @@
             return$this->squaremeters;
         }
 
-        function getPowerGenerated() {
+        public function getPowerGenerated() {
             return $this->powerGenerated;
         }
 
@@ -43,12 +43,12 @@
             $this->setPowerGenerated();
             $difference = $this->getPowerGenerated() - (($consumer->getTotalDemand() / 100) * $consumer->getSolarDemand());
             if ($difference < 0){
-                $energyStorage->pullSolar($difference);
+                $transfer = -$energyStorage->pullSolar($difference);
             }
             if ($difference > 0){
-                $energyStorage->pushSolar($difference);
+                $transfer = $energyStorage->pushSolar($difference);
             }
-            return $difference;}
+            return $transfer;}
 
     }
 

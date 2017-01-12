@@ -1,114 +1,128 @@
 <?php
     include_once("init.php");
 
+    //Vraag en energiebronnen aanmaken
     $consumer = new Consumer();
+    $consumer->setTotalDemand(100000000);
+    $consumer->setWindDemand(5);
+    $consumer->setCoalDemand(40);
+    $consumer->setNaturalGasDemand(30);
+    $consumer->setNuclearDemand(20);
+    $consumer->setSolarDemand(5);
 
-    $totaldemand = $consumer->setTotalDemand(100000000);
-    $winddemandpercentage = $consumer->setWindDemand(5);
-    $coaldemandpercentage = $consumer->setCoalDemand(40);
-    $gasdemandpercentage = $consumer->setGasDemand(30);
-    $nucleardemandpercentage = $consumer->setNuclearDemand(20);
-    $solardemandpercentage = $consumer->setSolarDemand(5);
+    $enviroment = new Environment();
+    $enviroment->setTime(12,00);
+    $enviroment->setTemperature(15);
+    $enviroment->setWindSpeed(7);
+    $enviroment->setSolarStrenght(99);
 
     $coalpowerplant = new CoalPowerplant();
+    $coalpowerplant->setGreen(20);
+    $coalpowerplant->setGray(80);
+
     $windpark = new WindPark();
+    $windpark->setNumberOfWindmills(2200);
+
     $solarpark = new SolarPark();
+    $solarpark->setSquareMeters(100000000);
+
     $naturalgas = new NaturalGas();
+    $naturalgas->setGreen(30);
+    $naturalgas->setGray(70);
+
     $nuclearplant = new NuclearPlant();
-    $enviroment = new Environment();
+
     $energystorage = new EnergyStorage();
+    $energystorage->setCapacity(30000);
+    $energystorage->setCapacityWind(5000);
+    $energystorage->setCapacitySolar(5000);
 
-    $time = $enviroment->setTime(12,00);
-    $temperature = $enviroment->setTemperature(15);
-    $windspeed = $enviroment->setWindspeed(7);
-    $solarstrength = $enviroment->setSolarstrenght(99);
+    //Gegevens laten tonen voor berekeningen
+    echo "<table border='0'>";
+    echo "<tr><td>De totale vraag:</td><td>". $consumer->getTotalDemand(). "</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>- Kool energie:</td><td>". $consumer->getCoalDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getCoalDemand(). " %</td></tr>";
+    echo "<tr><td>- Gas energie:</td><td>". $consumer->getNaturalGasDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getNaturalGasDemand(). " %</td></tr>";
+    echo "<tr><td>- Kernenergie:</td><td>". $consumer->getNuclearDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getNuclearDemand(). " %</td></tr>";
+    echo "<tr><td>- Windenergie:</td><td>". $consumer->getWindDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getWindDemand(). " %</td></tr>";
+    echo "<tr><td>- Zonne-energie:</td><td>". $consumer->getSolarDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getSolarDemand(). " %</td></tr>";
+    echo "</table>";
 
-    $numberswindmills = $windpark->setNumberOfWindmills(2200);
-    $numbersquaremeters = $solarpark->setSquareMeters(100000000);
-
-    $capacity = $energystorage->setCapacity(30000);
-    $windcapacity = $energystorage->setCapacityWind(5000);
-    $solarcapacity = $energystorage->setCapacitySolar(5000);
-
-    echo "Storage wind: " . $energystorage->getCapacityWind();
-    echo "</br>";
-    echo "Storage solar: " . $energystorage->getCapacitySolar();
-    echo "</br>";
     echo "</br>";
 
-    $coaldemand = $coalpowerplant->calculateEnergising($consumer);
-    $coaldemandpercentagegreen = $coalpowerplant->setGreen(20);
-    $coaldemandpercentagegray = $coalpowerplant->setGray(80);
-    $coaldemandgreen = $coalpowerplant->calculateGreen();
-    $coaldemandgray = $coalpowerplant->calculateGray();
-    $coalgreenco2 = $coalpowerplant->calculateCO2green();
-    $coalgrayco2 = $coalpowerplant->calculateCO2gray();
+    echo "<table border='0'>";
+    echo "<tr><td>Tijd:</td><td>". $enviroment->getTime(). "</td></tr>";
+    echo "<tr><td>Temperatuur:</td><td>". $enviroment->getTemperature(). " &deg;C</td></tr>";
+    echo "<tr><td>Windkracht:</td><td>". $enviroment->getWindSpeed(). "</td></tr>";
+    echo "<tr><td>Zonnekracht:</td><td>". $enviroment->getSolarStrenght(). " %</td></tr>";
+    echo "</table>";
 
-    $winddemand = $windpark->calculateEnergising($consumer, $energystorage, $enviroment);
-    $solardemand = $solarpark->calculateEnergising($consumer, $energystorage, $enviroment);
+    echo "</br>";
 
-    $naturalgasdemand = $naturalgas->calculateEnergising($consumer);
-    $naturalgasdemandpercentagegreen = $naturalgas->setGreen(30);
-    $naturalgasdemandpercentagegray = $naturalgas->setGray(70);
-    $naturalgasdemandgreen = $naturalgas->calculateGreen();
-    $naturalgasdemandgray = $naturalgas->calculateGray();
-    $naturalgasgreenco2 = $naturalgas->calculateCO2green();
-    $naturalgasgrayco2 = $naturalgas->calculateCO2gray();
+    echo "<table border='0'>";
+    echo "<tr><td>Energie-opslag capaciteit</td><td>". $energystorage->getCapacity(). "</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>- Windenergie</td><td>". $energystorage->getCapacityWind(). "</td><td>kWh</td><td>".($energystorage->getCapacityWind())/$energystorage->getCapacity()*100 ."%</td></tr>";
+    echo "<tr><td>- Zonne-energie</td><td>". $energystorage->getCapacitySolar(). "</td><td>kWh</td><td>".($energystorage->getCapacitySolar())/$energystorage->getCapacity()*100 ."%</td></tr>";
+    echo "</table>";
 
-    $nuclearplantdemand = $nuclearplant->calculateEnergising($consumer);
+    echo "</br>";
 
-    echo "Solarstrength: " .$solarstrength. "%";
+    //Alles uitrekenen
+    $coalpowerplant->calculateEnergising($consumer);
+    $coalpowerplant->calculateGreen();
+    $coalpowerplant->calculateGray();
+    $coalpowerplant->calculateCO2green();
+    $coalpowerplant->calculateCO2gray();
+
+    $windtransfer = $windpark->calculateEnergising($consumer, $energystorage, $enviroment);
+
+    $solartransfer = $solarpark->calculateEnergising($consumer, $energystorage, $enviroment);
+
+    $naturalgas->calculateEnergising($consumer);
+    $naturalgas->calculateGreen();
+    $naturalgas->calculateGray();
+    $naturalgas->calculateCO2green();
+    $naturalgas->calculateCO2gray();
+
+    $nuclearplant->calculateEnergising($consumer);
+
+    //Gegevens laten tonen na berekeningen
+    echo "<table border='0'>";
+    echo "<tr><td>Opwekking kool energie</td><td>". $coalpowerplant->getEnergising() ."</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>- Groen</td><td>". $coalpowerplant->calculateGreen(). "</td><td>kWh</td><td>". $coalpowerplant->getGreen(). "%</td></tr>";
+    echo "<tr><td>- Grijs</td><td>". $coalpowerplant->calculateGray(). "</td><td>kWh</td><td>". $coalpowerplant->getGray(). "%</td></tr>";
+    echo "<tr><td>&nbsp</td></tr>";
+    echo "<tr><td>Opwekking gas energie</td><td>". $naturalgas->getEnergising() ."</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>- Groen</td><td>". $naturalgas->calculateGreen(). "</td><td>kWh</td><td>". $naturalgas->getGreen(). "%</td></tr>";
+    echo "<tr><td>- Grijs</td><td>". $naturalgas->calculateGray(). "</td><td>kWh</td><td>". $naturalgas->getGray(). "%</td></tr>";
+    echo "<tr><td>&nbsp</td></tr>";
+    echo "<tr><td>Opwekking kernenergie</td><td>". $nuclearplant->getEnergising() ."</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>&nbsp</td></tr>";
+    echo "<tr><td>Opwekking windenergie</td><td>". $windpark->getPowerGenerated() ."</td><td>kWh</td></tr>";
+    echo "<tr><td>&nbsp</td></tr>";
+    echo "<tr><td>Opwekking zonne-energie</td><td>". $solarpark->getPowerGenerated() ."</td><td>kWh</td></tr>";
+    echo "<tr><td>&nbsp</td></tr>";
+    echo "</table>";
+
     echo "</br>";
-    echo "Windspeed: " .$windspeed;
+    echo "<table border='0'>";
+    echo "<tr><td>Energie-opslag capaciteit</td><td>". $energystorage->getCapacity(). "</td><td>kWh</td><td>100%</td></tr>";
+    echo "<tr><td>- Windenergie</td><td>". $energystorage->getCapacityWind(). "</td><td>kWh</td><td>".($energystorage->getCapacityWind())/$energystorage->getCapacity()*100 ."%</td></tr>";
+    echo "<tr><td>- Zonne-energie</td><td>". $energystorage->getCapacitySolar(). "</td><td>kWh</td><td>".($energystorage->getCapacitySolar())/$energystorage->getCapacity()*100 ."%</td></tr>";
+    echo "</table>";
+
     echo "</br>";
-    echo "Time: " .$time;
+
+    echo "<table border='0'>";
+    echo "<tr><td>Getransfereerd:</td></tr>";
+    echo "<tr><td>- Windenergie</td><td>". $windtransfer."</td></tr>";
+    echo "<tr><td>- Zonne-energie</td><td>". $solartransfer."</td></tr>";
+    echo "</table>";
+
     echo "</br>";
-    echo "Temperature: " .$temperature;
-    echo "</br>";
-    echo "Total kWh: " .$totaldemand;
-    echo "</br>";
-    echo "</br>";
-    echo "Coalpowerplant kWh: " .$coaldemand;
-    echo "</br>";
-    echo "Coalpowerplant kWh(green): " .$coaldemandgreen;
-    echo "</br>";
-    echo "Coalpowerplant kWh(gray): " .$coaldemandgray;
-    echo "</br>";
-    echo "CO2 green coal: " . $coalgreenco2;
-    echo "</br>";
-    echo "CO2 gray coal: " . $coalgrayco2;
-    echo "</br>";
-    echo "</br>";
-    echo "Production wind: " . $windpark->getPowerGenerated();
-    echo "</br>";
-    echo "Windpark kWh: " .$consumer->getTotalDemand() / 100 * $consumer->getWindDemand();
-    echo "</br>";
-    echo "Windpark kWh difference: " .$winddemand;
-    echo "</br>";
-    echo "</br>";
-    echo "Production solar: " . $solarpark->getPowerGenerated();
-    echo "</br>";
-    echo "Solarpark kWh: " .$consumer->getTotalDemand() / 100 * $consumer->getSolarDemand();
-    echo "</br>";
-    echo "Solarpark kWh difference: " .$solardemand;
-    echo "</br>";
-    echo "</br>";
-    echo "Naturalgas kWh: " .$naturalgasdemand;
-    echo "</br>";
-    echo "Natural Gas kWh(green): " .$naturalgasdemandgreen;
-    echo "</br>";
-    echo "Natural Gas kWh(gray): " .$naturalgasdemandgray;
-    echo "</br>";
-    echo "CO2 green Natural Gas: " . $naturalgasgreenco2;
-    echo "</br>";
-    echo "CO2 gray Natural Gas: " . $naturalgasgrayco2;
-    echo "</br>";
-    echo "</br>";
-    echo "Nuclearplant kWh: " .$nuclearplantdemand;
-    echo "</br>";
-    echo "</br>";
-    echo "Storage wind: " . $energystorage->getCapacityWind();
-    echo "</br>";
-    echo "Storage solar: " . $energystorage->getCapacitySolar();
+    echo "<table border='0'>";
+    echo "<tr><td>Total CO2 uitstoot:</td><td></td></t></tr>";
+    echo "<tr><td>- Kool energie:</td><td>". $coalpowerplant->calculateCO2gray(). "</td><td>KG</td><td>&nbsp&nbsp&nbsp</td><td>Afgevangen:</td><td>". $coalpowerplant->calculateCO2green()."</td><td>KG</td></tr>";
+    echo "<tr><td>- Gas energie:</td><td>". $naturalgas->calculateCO2gray(). "</td><td>KG</td><td>&nbsp&nbsp&nbsp</td><td>Afgevangen:</td><td>". $naturalgas->calculateCO2green()."</td><td>KG</td></tr>";
+    echo "</table>";
 
 ?>

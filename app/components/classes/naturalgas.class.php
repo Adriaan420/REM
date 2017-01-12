@@ -23,7 +23,7 @@
         }
 
         public function calculateEnergising(Consumer $consumer){
-            return $this->energising = $consumer->getTotalDemand() / 100 * $consumer->getGasDemand();
+            return $this->energising = $consumer->getTotalDemand() / 100 * $consumer->getNaturalGasDemand();
         }
 
         public function calculateGreen(){
