@@ -19,6 +19,7 @@
     $coalpowerplant = new CoalPowerplant();
     $coalpowerplant->setGreen(20);
     $coalpowerplant->setGray(80);
+    $coalpowerplant->setPricekWhCO2emission(0.01);
 
     $windpark = new WindPark();
     $windpark->setNumberOfWindmills(2200);
@@ -68,22 +69,21 @@
 
     //Alles uitrekenen
     $coalpowerplant->calculateEnergising($consumer);
-    $coalpowerplant->calculateGreen();
-    $coalpowerplant->calculateGray();
-    $coalpowerplant->calculateCO2green();
-    $coalpowerplant->calculateCO2gray();
+    $coalpowerplant->calculatePricekWh();
+    $coalpowerplant->setPricekWhCO2emission(($coalpowerplant->getPricekWh() * 0.56));
 
     $windtransfer = $windpark->calculateEnergising($consumer, $energystorage, $enviroment);
+    $windpark->calculatePricekWh($enviroment);
 
     $solartransfer = $solarpark->calculateEnergising($consumer, $energystorage, $enviroment);
+    $solarpark->calculatePricekWh($enviroment);
 
     $naturalgas->calculateEnergising($consumer);
-    $naturalgas->calculateGreen();
-    $naturalgas->calculateGray();
-    $naturalgas->calculateCO2green();
-    $naturalgas->calculateCO2gray();
+    $naturalgas->calculatePricekWh();
+    $naturalgas->setPricekWhCO2emission(($naturalgas->getPricekWh() * 0.56));
 
     $nuclearplant->calculateEnergising($consumer);
+    $nuclearplant->calculatePricekWh();
 
     //Gegevens laten tonen na berekeningen
     echo "<table border='0'>";
@@ -123,6 +123,18 @@
     echo "<tr><td>Total CO2 uitstoot:</td><td></td></t></tr>";
     echo "<tr><td>- Kool energie:</td><td>". $coalpowerplant->calculateCO2gray(). "</td><td>KG</td><td>&nbsp&nbsp&nbsp</td><td>Afgevangen:</td><td>". $coalpowerplant->calculateCO2green()."</td><td>KG</td></tr>";
     echo "<tr><td>- Gas energie:</td><td>". $naturalgas->calculateCO2gray(). "</td><td>KG</td><td>&nbsp&nbsp&nbsp</td><td>Afgevangen:</td><td>". $naturalgas->calculateCO2green()."</td><td>KG</td></tr>";
+    echo "</table>";
+
+    echo "</br>";
+    echo "<table border='0'>";
+    echo "<tr><td>Prijzen</td></tr>";
+    echo "<tr><td>- Kool energie (grijs):</td><td>&euro; ". $coalpowerplant->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Kool energie totaal (grijs):</td><td>&euro; ". $coalpowerplant->getEnergising() * $coalpowerplant->getPricekWh() * $coalpowerplant->getGray() / 100 . "</td></tr>";
+    echo "<tr><td>- Kool energie (groen):</td><td>&euro; ". ($coalpowerplant->getPricekWh() + $coalpowerplant->getPricekWhCO2emission()). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Kool energie totaal (groen):</td><td>&euro; ". $coalpowerplant->getEnergising() * $coalpowerplant->getPricekWh() * $coalpowerplant->getGreen() / 100 . "</td></tr>";
+    echo "<tr><td>- Gas energie (grijs):</td><td>&euro; ". $naturalgas->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Gas energie totaal (grijs):</td><td>&euro; ". $naturalgas->getEnergising() * $naturalgas->getPricekWh() * $naturalgas->getGray() / 100 . "</td></tr>";
+    echo "<tr><td>- Gas energie (groen):</td><td>&euro; ". ($naturalgas->getPricekWh() + $naturalgas->getPricekWhCO2emission()). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Gas energie totaal (groen):</td><td>&euro; ". $naturalgas->getEnergising() * $naturalgas->getPricekWh() * $naturalgas->getGreen() / 100 . "</td></tr>";
+    echo "<tr><td>- Kernenergie:</td><td>&euro; ". $nuclearplant->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Kernenergie totaal:</td><td>&euro; ". $nuclearplant->getEnergising() * $nuclearplant->getPricekWh(). "</td></tr>";
+    echo "<tr><td>- Windenergie:</td><td>&euro; ". $windpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Windenergie totaal:</td><td>&euro; ". $windpark->getPowerGenerated() * $windpark->getPricekWh(). "</td></tr>";
+    echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
 
 ?>

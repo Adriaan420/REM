@@ -48,8 +48,12 @@
             if ($difference > 0){
                 $transfer = $energyStorage->pushSolar($difference);
             }
-            return $transfer;}
+            return $transfer;
+        }
 
+        public function calculatePricekWh(Environment $environment){
+            return $this->pricekWh = 0.03757 + ((0.08726 / 100) * (100-$environment->getSolarStrenght()));
+        }
     }
 
 ?>
