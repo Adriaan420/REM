@@ -6,6 +6,7 @@
         var $numberOfWindmills = 0;
         var $powerGenerated = 0;
         var $generatePowerOneWindmill = 0;
+        var $energytype = 'windpark';
 
         public function setWindPower($windpower) {
             return $this->windpower = $windpower;

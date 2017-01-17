@@ -137,4 +137,88 @@
     echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
 
+    //Alles in de database zetten
+    $database = new myPDO();
+
+    $query = "INSERT INTO `omstandigheid` (`omstandigheid_tijd`, `omstandigheid_temperatuur`, `omstandigheid_zonnekracht`, `omstandigheid_windkracht`, `omstandigheid_energievraag`) VALUES ('". $enviroment->getTime() .":00', '".$enviroment->getTemperature() ."', '".$enviroment->getSolarStrenght() ."', '".$enviroment->getWindSpeed() ."', '".$consumer->getTotalDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenviroment = $database->lastInsertId();
+
+    $query = "INSERT INTO `energieopslag` (`energieopslag_capaciteit`) VALUES ('".$energystorage->getCapacity() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergystorage = $database->lastInsertId();
+
+    $query = "INSERT INTO `energiebron` (`energiebron_naam`, `energiebron_co2`) VALUES ('".$coalpowerplant->getEnergyType() ."', ". ($coalpowerplant->calculateCO2gray() + $coalpowerplant->calculateCO2green()) .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergysource = $database->lastInsertId();
+    $query = "INSERT INTO `omstandigheid_energiebron` (`energievraag_energiebron_omstandigheid`, `energievraag_energiebron_energiebron`, `energievraag_energiebron_percentage`) VALUES ('".$idenviroment ."', '".$idenergysource ."', '".$consumer->getCoalDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `omstandigheid_energiebron_prijs` (`omstandigheid_energiebron_prijs_omstandigheid`, `omstandigheid_energiebron_prijs_energiebron`, `omstandigheid_energiebron_prijs_prijs`) VALUES ('".$idenviroment ."', '".$idenergysource ."', ".$coalpowerplant->getPricekWh() .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `co2_mitigatie_energiebron` (`co2_mitigatie_energiebron_energiebron`, `co2_mitigatie_energiebron_afgevangen`) VALUES ('".$idenergysource ."', '".$coalpowerplant->calculateCO2green() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+    $query = "INSERT INTO `energiebron` (`energiebron_naam`, `energiebron_co2`) VALUES ('".$naturalgas->getEnergyType() ."', ". ($naturalgas->calculateCO2gray() + $naturalgas->calculateCO2green()) .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergysource = $database->lastInsertId();
+    $query = "INSERT INTO `omstandigheid_energiebron` (`energievraag_energiebron_omstandigheid`, `energievraag_energiebron_energiebron`, `energievraag_energiebron_percentage`) VALUES ('".$idenviroment ."', '".$idenergysource ."', '".$consumer->getNaturalGasDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `omstandigheid_energiebron_prijs` (`omstandigheid_energiebron_prijs_omstandigheid`, `omstandigheid_energiebron_prijs_energiebron`, `omstandigheid_energiebron_prijs_prijs`) VALUES ('".$idenviroment ."', '".$idenergysource ."', ".$naturalgas->getPricekWh() .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `co2_mitigatie_energiebron` (`co2_mitigatie_energiebron_energiebron`, `co2_mitigatie_energiebron_afgevangen`) VALUES ('".$idenergysource ."', '".$naturalgas->calculateCO2green() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+    $query = "INSERT INTO `energiebron` (`energiebron_naam`) VALUES ('".$nuclearplant->getEnergyType() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergysource = $database->lastInsertId();
+    $query = "INSERT INTO `omstandigheid_energiebron` (`energievraag_energiebron_omstandigheid`, `energievraag_energiebron_energiebron`, `energievraag_energiebron_percentage`) VALUES ('".$idenviroment ."', '".$idenergysource ."', '".$consumer->getNuclearDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `omstandigheid_energiebron_prijs` (`omstandigheid_energiebron_prijs_omstandigheid`, `omstandigheid_energiebron_prijs_energiebron`, `omstandigheid_energiebron_prijs_prijs`) VALUES ('".$idenviroment ."', '".$idenergysource ."', ".$nuclearplant->getPricekWh() .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+    $query = "INSERT INTO `energiebron` (`energiebron_naam`) VALUES ('".$windpark->getEnergyType() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergysource = $database->lastInsertId();
+    $query = "INSERT INTO `omstandigheid_energiebron` (`energievraag_energiebron_omstandigheid`, `energievraag_energiebron_energiebron`, `energievraag_energiebron_percentage`) VALUES ('".$idenviroment ."', '".$idenergysource ."', '".$consumer->getWindDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `omstandigheid_energiebron_prijs` (`omstandigheid_energiebron_prijs_omstandigheid`, `omstandigheid_energiebron_prijs_energiebron`, `omstandigheid_energiebron_prijs_prijs`) VALUES ('".$idenviroment ."', '".$idenergysource ."', ".$windpark->getPricekWh() .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `energieopslag_energiebron` (`energieopslag_energiebron_energieopslag`, `energieopslag_energiebron_energiebron`, `energieopslag_energiebron_kw`) VALUES ('".$idenergystorage ."', '".$idenergysource ."', '".$energystorage->getCapacityWind() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+    $query = "INSERT INTO `energiebron` (`energiebron_naam`) VALUES ('".$solarpark->getEnergyType() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $idenergysource = $database->lastInsertId();
+    $query = "INSERT INTO `omstandigheid_energiebron` (`energievraag_energiebron_omstandigheid`, `energievraag_energiebron_energiebron`, `energievraag_energiebron_percentage`) VALUES ('".$idenviroment ."', '".$idenergysource ."', '".$consumer->getSolarDemand() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $query = "INSERT INTO `omstandigheid_energiebron_prijs` (`omstandigheid_energiebron_prijs_omstandigheid`, `omstandigheid_energiebron_prijs_energiebron`, `omstandigheid_energiebron_prijs_prijs`) VALUES ('".$idenviroment ."', '".$idenergysource ."', ".$solarpark->getPricekWh() .");";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+    echo $query;
+
+    $query = "INSERT INTO `energieopslag_energiebron` (`energieopslag_energiebron_energieopslag`, `energieopslag_energiebron_energiebron`, `energieopslag_energiebron_kw`) VALUES ('".$idenergystorage ."', '".$idenergysource ."', '".$energystorage->getCapacitySolar() ."');";
+    $statement = $database->prepare($query);
+    $statement->execute();
+
+
 ?>

@@ -3,6 +3,7 @@
     class NuclearPlant extends EnergySource {
 
         var $nuclear = 0;
+        var $energytype = 'nuclearplant';
 
         public function setNuclear($nuclear) {
             return $this->nuclear = $nuclear;

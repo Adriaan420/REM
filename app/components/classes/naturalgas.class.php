@@ -6,6 +6,7 @@
         var $gray = 0;
         var $outputCO2NaturalGas = 0.465;
         var $pricekWhCO2emission = 0;
+        var $energytype = 'naturalgas';
 
         public function getGreen(){
             return $this->green;
