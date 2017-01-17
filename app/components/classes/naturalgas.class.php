@@ -5,6 +5,7 @@
         var $green = 0;
         var $gray = 0;
         var $outputCO2NaturalGas = 0.465;
+        var $pricekWhCO2emission = 0;
 
         public function getGreen(){
             return $this->green;
@@ -14,12 +15,20 @@
             return $this->gray;
         }
 
+        public function getPricekWhCO2emission(){
+            return $this->pricekWhCO2emission;
+        }
+
         public function setGreen($green){
             return $this->green = $green;
         }
 
         public function setGray($gray){
             return $this->gray = $gray;
+        }
+
+        public function setPricekWhCO2emission($price){
+            return $this->pricekWhCO2emission = $price;
         }
 
         public function calculateEnergising(Consumer $consumer){
@@ -42,6 +51,11 @@
         public function calculateCO2gray(){
             return $this->outputCO2NaturalGas * $this->calculateGray();
         }
+
+        public function calculatePricekWh(){
+            return $this->pricekWh = 0.06274;
+        }
+
     }
 
 ?>

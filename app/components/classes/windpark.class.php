@@ -89,6 +89,13 @@
             }
             return $transfer;
         }
+
+        public function calculatePricekWh(Environment $environment){
+            $generatedPower = $this->powerGeneratedOneWindmill($environment);
+            $efficiency = $generatedPower / 27.5;
+
+            return $this->pricekWh = 0.03757 + ((0.08726 / 100) * (100-$efficiency));
+        }
     }
 
 ?>

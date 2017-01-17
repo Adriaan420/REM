@@ -16,6 +16,10 @@
             return $this->energising = $consumer->getTotalDemand() / 100 * $consumer->getNuclearDemand();
         }
 
+        public function calculatePricekWh(){
+            return $this->pricekWh = 0.06274;
+        }
+
     }
 
 ?>
