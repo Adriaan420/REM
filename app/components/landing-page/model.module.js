@@ -3,12 +3,13 @@
  */
 'use strict';
 
-var app = angular.module('landingPage', ['ngMaterial','ngMessages'])
+var app = angular.module('landingPage', ['ngMaterial','ngMessages','ui.bootstrap','ngSanitize'])
 //  define the 'landingPage' module
 
-        app.controller('AppCtrl', function($scope, $mdDialog) {
+        app.controller('AppCtrl', function($scope, $sce) {
         $scope.status = '  ';
         $scope.customFullscreen = false;
+        $scope.htmlPopover = $sce.trustAsHtml();
 
         $scope.showAlert = function (ev) {
             // Appending dialog to document.body to cover sidenav in docs app
