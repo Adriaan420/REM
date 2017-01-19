@@ -39,6 +39,7 @@
     $energystorage->setCapacitySolar(5000);
 
     //Gegevens laten tonen voor berekeningen
+/*
     echo "<table border='0'>";
     echo "<tr><td>De totale vraag:</td><td>". $consumer->getTotalDemand(). "</td><td>kWh</td><td>100%</td></tr>";
     echo "<tr><td>- Kool energie:</td><td>". $consumer->getCoalDemand()*$consumer->getTotalDemand()/100 ."</td><td>kWh</td><td>". $consumer->getCoalDemand(). " %</td></tr>";
@@ -136,5 +137,5 @@
     echo "<tr><td>- Windenergie:</td><td>&euro; ". $windpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Windenergie totaal:</td><td>&euro; ". $windpark->getPowerGenerated() * $windpark->getPricekWh(). "</td></tr>";
     echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
-
+*/
 ?>

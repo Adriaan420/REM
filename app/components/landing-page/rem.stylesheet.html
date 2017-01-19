@@ -1,13 +1,33 @@
+<?php
+    include_once (".././classes/simulation_v1.php");
+    ?>
 <div ng-controller="SideMenu" class="container-fluid">
     <div class="row" style="height: 80px;">
         <div class="col-md-2"><a href="https://www.dnvgl.nl/">
             <img src="app/components/images/dnvlogo.png" style="height: auto; width: 200px;"></a>
         </div>
-        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
-        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
-        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
-        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
-        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;">aa</div>
+        <div class="col-md-2" style="height: 100%; display: flex; align-items: center; text-align: center;"></div>
+
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">
+            <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
+            <?php echo $enviroment->getTime() ?>
+        </div>
+
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">
+            <i class="fa fa-thermometer-half fa-2x" aria-hidden="true"></i>
+            <?php echo $enviroment->getTemperature() . " " . "°C" ?>
+        </div>
+
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">
+
+            <?php echo $enviroment->getWindSpeed() ?>
+        </div>
+
+        <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: center;">
+            <i class="fa fa-sun-o fa-2x" aria-hidden="true"></i>
+            <?php echo $enviroment->getSolarStrenght() ?>
+        </div>
+        <div class="col-md-3" style="height: 100%; display: flex; align-items: center; text-align: right;"></div>
         <div class="col-md-1" style="height: 100%; display: flex; align-items: center; text-align: right;">
             <i ng-click="toggleLeft()" class="fa fa-bars fa-3x" aria-hidden="true"></i>
         </div>
@@ -36,35 +56,35 @@
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-8" style="display: flex;">5</div>
+        <div class="col-md-8" style="display: flex;"></div>
         <div class="col-md-1"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="CO2 Mitigatie" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2"></div>
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-4" style="display: flex;">6</div>
+        <div class="col-md-4" style="display: flex;"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Aardgas" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-7"></div>
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-10" style="display: flex;">7</div>
+        <div class="col-md-10" style="display: flex;"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="left" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="left" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Kolencentrale" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-1"></div>
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-5" style="display: flex;">8</div>
+        <div class="col-md-5" style="display: flex;"></div>
         <div class="col-md-1"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<?php echo $consumer->getTotalDemand() ?>'" popover-title="Consument" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-5"></div>
     </div>
@@ -72,37 +92,30 @@
     <div class="row" style="height: 10%;">
         <div class="col-md-2" style="display: flex;"></div>
         <div class="col-md-2" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Kernenergie" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Energieopslag" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2" style="display: flex;"></div>
         <div class="col-md-4" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Zonnepark" popover-trigger="'mouseenter'"></i>
         </div>
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-4" style="display: flex;"></div>
-        <div class="col-md-4" style="display: flex;"></div>
-        <div class="col-md-4" style="display: flex;"></div>
-        <div class="col-md-4" style="display: flex;"></div>
+        <div class="col-md-5" style="display: flex;"></div>
+        <div class="col-md-2" style="display: flex;">
+            <button type="button"><i class="fa fa-play fa-2x" aria-hidden="true"></i></button>
+            <button type="button"><i class="fa fa-stop fa-2x" aria-hidden="true"></i></button>
+            <button type="button"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></button>
+            <button type="button"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></button>
+        </div>
+        <div class="col-md-5" style="display: flex;"></div>
     </div>
 
 </div>
-<!--
-<div ng-controller="AppCtrl" class="container-fluid">
-    <i id=3 ng-click="showAlert($event)" class="fa fa-info-circle fa-5x" aria-hidden="true"></i>
-</div>
-<!--<div ng-controller="EnergySources">
-    <ul ng-repeat="source in EnergySources">
-        <li>
-            <span>{{source.name}}</span>
-            <p>{{source.description}}</p>
-        </li>
-    </ul>
-</div> -->
+
 <div ng-controller="SideMenu">
     <section layout="row">
         <md-sidenav class="md-sidenav-right" md-component-id="left">
