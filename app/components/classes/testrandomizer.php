@@ -2,7 +2,7 @@
     session_start();
     include_once("init.php");
 
-    $random = new randomizer();
+    $random = new Randomizer();
 
     if (isset($_SESSION['solarstrenght'])){
         $random->setSolarStrenght($_SESSION['solarstrenght']);

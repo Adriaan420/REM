@@ -1,6 +1,6 @@
 <?php
 
-    class randomizer{
+    class Randomizer{
 
         var $solarstrenght = null;
         var $temperature = null;
@@ -183,6 +183,9 @@
 
             $this->setTotalDemand($totaldemand);
 
+            echo $min;
+            echo "</br>";
+
             return $this->totaldemand;
         }
 
@@ -316,10 +319,6 @@
                 $this->setNaturalGasDemand($naturalgasdemand);
             }
 
-            echo $this->getCoalDemand();
-            echo "</br>";
-            echo $this->getNaturalGasDemand();
-            echo "</br>";
             $total = $this->getSolarDemand() + $this->getWindDemand() + $this->getCoalDemand() + $this->getNaturalGasDemand() + $this->getNuclearDemand();
 
             return $total;

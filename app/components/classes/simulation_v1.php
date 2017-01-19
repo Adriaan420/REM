@@ -1,20 +1,45 @@
 <?php
     include_once("init.php");
 
+    //Alles random bepalen
+    $random = new Randomizer();
+
+    $random->setTemperature(15);
+    $random->setSolarStrenght(65);
+    $random->setWindspeed(6);
+
+    $random->randomizeSolarStrenght();
+    $random->randomizeTemperature();
+    $random->randomizeWindspeed();
+
+    $random->setTotalDemand(10000);
+    $random->setCoalDemand(30);
+    $random->setSolarDemand(5);
+    $random->setWindDemand(10);
+    $random->setNaturalGasDemand(30);
+    $random->setNuclearDemand(25);
+
+    $random->randomizeCoalDemand();
+    $random->randomizeSolarDemand();
+    $random->randomizeWindDemand();
+    $random->randomizeNaturalGasDemand();
+    $random->randomizeNuclearDemand();
+    $random->makeHunderd();
+
     //Vraag en energiebronnen aanmaken
     $consumer = new Consumer();
-    $consumer->setTotalDemand(100000000);
-    $consumer->setWindDemand(5);
-    $consumer->setCoalDemand(40);
-    $consumer->setNaturalGasDemand(30);
-    $consumer->setNuclearDemand(20);
-    $consumer->setSolarDemand(5);
+    $consumer->setTotalDemand($random->getTotalDemand());
+    $consumer->setWindDemand($random->getWindDemand());
+    $consumer->setCoalDemand($random->getCoalDemand());
+    $consumer->setNaturalGasDemand($random->getNaturalGasDemand());
+    $consumer->setNuclearDemand($random->getNuclearDemand());
+    $consumer->setSolarDemand($random->getSolarDemand());
 
     $enviroment = new Environment();
     $enviroment->setTime(12,00);
-    $enviroment->setTemperature(15);
-    $enviroment->setWindSpeed(7);
-    $enviroment->setSolarStrenght(99);
+    $enviroment->setTemperature($random->getTemperature());
+    $enviroment->setWindSpeed($random->getWindspeed());
+    $enviroment->setSolarStrenght($random->getSolarStrenght());
 
     $coalpowerplant = new CoalPowerplant();
     $coalpowerplant->setGreen(20);
@@ -22,10 +47,10 @@
     $coalpowerplant->setPricekWhCO2emission(0.01);
 
     $windpark = new WindPark();
-    $windpark->setNumberOfWindmills(2200);
+    $windpark->setNumberOfWindmills(2);
 
     $solarpark = new SolarPark();
-    $solarpark->setSquareMeters(100000000);
+    $solarpark->setSquareMeters(50000);
 
     $naturalgas = new NaturalGas();
     $naturalgas->setGreen(30);
@@ -34,9 +59,9 @@
     $nuclearplant = new NuclearPlant();
 
     $energystorage = new EnergyStorage();
-    $energystorage->setCapacity(30000);
-    $energystorage->setCapacityWind(5000);
-    $energystorage->setCapacitySolar(5000);
+    $energystorage->setCapacity(10000);
+    $energystorage->setCapacityWind(500);
+    $energystorage->setCapacitySolar(500);
 
     //Gegevens laten tonen voor berekeningen
     echo "<table border='0'>";
@@ -214,7 +239,7 @@
     $statement = $database->prepare($query);
     $statement->execute();
 
-    echo $query;
+    //echo $query;
 
     $query = "INSERT INTO `energieopslag_energiebron` (`energieopslag_energiebron_energieopslag`, `energieopslag_energiebron_energiebron`, `energieopslag_energiebron_kw`) VALUES ('".$idenergystorage ."', '".$idenergysource ."', '".$energystorage->getCapacitySolar() ."');";
     $statement = $database->prepare($query);
