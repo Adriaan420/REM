@@ -5,8 +5,6 @@
         var $solarstrenght = null;
         var $temperature = null;
         var $windspeed = null;
-        var $hours = null;
-        var $minutes = null;
         var $totaldemand = null;
         var $coaldemand = null;
         var $naturalgasdemand = null;
@@ -24,14 +22,6 @@
 
         public function getWindspeed(){
             return $this->windspeed;
-        }
-
-        public function getHours(){
-            return $this->hours;
-        }
-
-        public function getMinutes(){
-            return $this->minutes;
         }
 
         public function getTotalDemand(){
@@ -70,14 +60,6 @@
             return $this->windspeed = $windspeed;
         }
 
-        public function setHours($hours){
-            return $this->hours = $hours;
-        }
-
-        public function setMinutes($minutes){
-            return $this->minutes = $minutes;
-        }
-
         public function setTotalDemand($totaldemand){
             return $this->totaldemand = $totaldemand;
         }
@@ -102,11 +84,134 @@
             return $this->solardemand = $solardemand;
         }
 
-        public function randomizeSolarStrenght(){
+        public function randomizeSolarStrenght(Environment $environment){
 
-            $min = $this->getSolarStrenght() - 20;
+            $min = 0;
+            $max = 0;
 
-            $max = $this->getSolarStrenght() + 20;
+            switch ($environment->getHours()) {
+                //
+                case 0:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 1:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 2:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 3:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 4:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 5:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 6:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(5);
+                    break;
+                case 7:
+                    $min = $this->setSolarStrenght(5);
+
+                    $max = $this->setSolarStrenght(15);
+                    break;
+                case 8:
+                    $min = $this->setSolarStrenght(10);
+
+                    $max = $this->setSolarStrenght(30);
+                    break;
+                case 9:
+                    $min = $this->setSolarStrenght(15);
+
+                    $max = $this->setSolarStrenght(35);
+                    break;
+                case 10:
+                    $min = $this->setSolarStrenght(30);
+
+                    $max = $this->setSolarStrenght(65);
+                    break;
+                case 11:
+                    $min = $this->setSolarStrenght(50);
+
+                    $max = $this->setSolarStrenght(90);
+                    break;
+                case 12:
+                    $min = $this->setSolarStrenght(60);
+
+                    $max = $this->setSolarStrenght(100);
+                    break;
+                case 13:
+                    $min = $this->setSolarStrenght(50);
+
+                    $max = $this->setSolarStrenght(90);
+                    break;
+                case 14:
+                    $min = $this->setSolarStrenght(45);
+
+                    $max = $this->setSolarStrenght(85);
+                    break;
+                case 15:
+                    $min = $this->setSolarStrenght(40);
+
+                    $max = $this->setSolarStrenght(80);
+                    break;
+                case 16:
+                    $min = $this->setSolarStrenght(30);
+
+                    $max = $this->setSolarStrenght(70);
+                    break;
+                case 17:
+                    $min = $this->setSolarStrenght(20);
+
+                    $max = $this->setSolarStrenght(40);
+                    break;
+                case 18:
+                    $min = $this->setSolarStrenght(5);
+
+                    $max = $this->setSolarStrenght(15);
+                    break;
+                case 19:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(5);
+                    break;
+                case 20:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(3);
+                    break;
+                case 21:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 22:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+                case 23:
+                    $min = $this->setSolarStrenght(0);
+
+                    $max = $this->setSolarStrenght(0);
+                    break;
+            }
 
             if($max >= 100){
                 $max = 100;
@@ -123,11 +228,18 @@
             return $this->solarstrenght;
         }
 
-        public function randomizeTemperature(){
+        public function randomizeTemperature(Environment $environment){
 
-            $min = $this->getTemperature() - 2;
+            if ($environment->getHours() >=3 && $environment->getHours() < 15){
+                $min = $this->getTemperature() + 1;
 
-            $max = $this->getTemperature() + 2;
+                $max = $this->getTemperature() + 2;
+            }
+            if ($environment->getHours() >=15 || $environment->getHours() < 3){
+                $min = $this->getTemperature() - 2;
+
+                $max = $this->getTemperature() - 1;
+            }
 
             if($max >= 30){
                 $max = 30;

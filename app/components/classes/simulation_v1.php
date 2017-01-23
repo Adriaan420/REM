@@ -1,15 +1,41 @@
 <?php
+    session_start();
     include_once("init.php");
+
+    var_dump($_POST);
 
     //Alles random bepalen
     $random = new Randomizer();
-
-    $random->setTemperature(15);
-    $random->setSolarStrenght(65);
     $random->setWindspeed(6);
 
-    $random->randomizeSolarStrenght();
-    $random->randomizeTemperature();
+    $enviroment = new Environment();
+
+    if (!isset($_POST["1"]) & !isset($_POST["-1"])){
+        $_SESSION['temp'] = $random->setTemperature(15);
+        $enviroment->setTime(12, 00);
+    }
+
+    if (isset($_POST["1"])){
+        $enviroment->setTime(($_POST["1"] % 24), 00);
+        $random->setTemperature($_SESSION['temp']);
+    }
+
+    if (isset($_POST["-1"])){
+        if ($_POST["-1"] < 0){
+            $_POST["-1"] = $_POST["-1"] + 24;
+        }
+        $enviroment->setTime($_POST["-1"], 00);
+        $random->setTemperature($_SESSION['temp']);
+    }
+
+    $_SESSION['temp'] = $random->randomizeTemperature($enviroment);
+    $enviroment->setTemperature($random->getTemperature());
+    $enviroment->setWindSpeed($random->getWindspeed());
+
+    $random->randomizeSolarStrenght($enviroment);
+    $enviroment->setSolarStrenght($random->getSolarStrenght());
+
+
     $random->randomizeWindspeed();
 
     $random->setTotalDemand(10000);
@@ -35,11 +61,7 @@
     $consumer->setNuclearDemand($random->getNuclearDemand());
     $consumer->setSolarDemand($random->getSolarDemand());
 
-    $enviroment = new Environment();
-    $enviroment->setTime(12,00);
-    $enviroment->setTemperature($random->getTemperature());
-    $enviroment->setWindSpeed($random->getWindspeed());
-    $enviroment->setSolarStrenght($random->getSolarStrenght());
+
 
     $coalpowerplant = new CoalPowerplant();
     $coalpowerplant->setGreen(20);
@@ -247,3 +269,8 @@
 
 
 ?>
+
+<form method="post">
+    <input type="submit" value="<?php echo $enviroment->getHours() + 1; ?>" name="1">
+    <input type="submit" value="<?php echo $enviroment->getHours() - 1; ?>" name="-1">
+</form>
