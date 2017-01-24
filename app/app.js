@@ -6,6 +6,7 @@ angular.module('REM', [
     'ngRoute',
     'ngMaterial',
     'ngMessages',
+    'ngSanitize',
     'ngAria',
     'landingPage'
 ])
