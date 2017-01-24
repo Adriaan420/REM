@@ -21,6 +21,10 @@
             return $this->energising;
         }
 
+        public function getEnergyType(){
+            return $this->energytype;
+        }
+
     }
 
 ?>

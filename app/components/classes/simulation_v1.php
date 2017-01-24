@@ -1,20 +1,67 @@
 <?php
+    session_start();
     include_once("init.php");
+
+    var_dump($_POST);
+
+    //Alles random bepalen
+    $random = new Randomizer();
+    $random->setWindspeed(6);
+
+    $enviroment = new Environment();
+
+    if (!isset($_POST["1"]) & !isset($_POST["-1"])){
+        $_SESSION['temp'] = $random->setTemperature(15);
+        $enviroment->setTime(12, 00);
+    }
+
+    if (isset($_POST["1"])){
+        $enviroment->setTime(($_POST["1"] % 24), 00);
+        $random->setTemperature($_SESSION['temp']);
+    }
+
+    if (isset($_POST["-1"])){
+        if ($_POST["-1"] < 0){
+            $_POST["-1"] = $_POST["-1"] + 24;
+        }
+        $enviroment->setTime($_POST["-1"], 00);
+        $random->setTemperature($_SESSION['temp']);
+    }
+
+    $_SESSION['temp'] = $random->randomizeTemperature($enviroment);
+    $enviroment->setTemperature($random->getTemperature());
+    $enviroment->setWindSpeed($random->getWindspeed());
+
+    $random->randomizeSolarStrenght($enviroment);
+    $enviroment->setSolarStrenght($random->getSolarStrenght());
+
+
+    $random->randomizeWindspeed();
+
+    $random->setTotalDemand(10000);
+    $random->setCoalDemand(30);
+    $random->setSolarDemand(5);
+    $random->setWindDemand(10);
+    $random->setNaturalGasDemand(30);
+    $random->setNuclearDemand(25);
+
+    $random->randomizeCoalDemand();
+    $random->randomizeSolarDemand();
+    $random->randomizeWindDemand();
+    $random->randomizeNaturalGasDemand();
+    $random->randomizeNuclearDemand();
+    $random->makeHunderd();
 
     //Vraag en energiebronnen aanmaken
     $consumer = new Consumer();
-    $consumer->setTotalDemand(100000000);
-    $consumer->setWindDemand(5);
-    $consumer->setCoalDemand(40);
-    $consumer->setNaturalGasDemand(30);
-    $consumer->setNuclearDemand(20);
-    $consumer->setSolarDemand(5);
+    $consumer->setTotalDemand($random->getTotalDemand());
+    $consumer->setWindDemand($random->getWindDemand());
+    $consumer->setCoalDemand($random->getCoalDemand());
+    $consumer->setNaturalGasDemand($random->getNaturalGasDemand());
+    $consumer->setNuclearDemand($random->getNuclearDemand());
+    $consumer->setSolarDemand($random->getSolarDemand());
 
-    $enviroment = new Environment();
-    $enviroment->setTime(12,00);
-    $enviroment->setTemperature(15);
-    $enviroment->setWindSpeed(7);
-    $enviroment->setSolarStrenght(99);
+
 
     $coalpowerplant = new CoalPowerplant();
     $coalpowerplant->setGreen(20);
@@ -22,10 +69,10 @@
     $coalpowerplant->setPricekWhCO2emission(0.01);
 
     $windpark = new WindPark();
-    $windpark->setNumberOfWindmills(2200);
+    $windpark->setNumberOfWindmills(2);
 
     $solarpark = new SolarPark();
-    $solarpark->setSquareMeters(100000000);
+    $solarpark->setSquareMeters(50000);
 
     $naturalgas = new NaturalGas();
     $naturalgas->setGreen(30);
@@ -34,9 +81,9 @@
     $nuclearplant = new NuclearPlant();
 
     $energystorage = new EnergyStorage();
-    $energystorage->setCapacity(30000);
-    $energystorage->setCapacityWind(5000);
-    $energystorage->setCapacitySolar(5000);
+    $energystorage->setCapacity(10000);
+    $energystorage->setCapacityWind(500);
+    $energystorage->setCapacitySolar(500);
 
     //Gegevens laten tonen voor berekeningen
 /*
@@ -137,5 +184,3 @@
     echo "<tr><td>- Windenergie:</td><td>&euro; ". $windpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Windenergie totaal:</td><td>&euro; ". $windpark->getPowerGenerated() * $windpark->getPricekWh(). "</td></tr>";
     echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
-*/
-?>

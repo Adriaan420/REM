@@ -4,6 +4,7 @@
         var $green = 0;
         var $gray = 0;
         var $outputCO2Coal = 0.909;
+        var $energytype = 'coalpowerplant';
 
         public function getGreen(){
             return $this->green;

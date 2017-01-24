@@ -46,6 +46,14 @@
             return $this->windspeed;
         }
 
+        public function getHours(){
+            return $this->hours;
+        }
+
+        public function getMinutes(){
+            return $this->minutes;
+        }
+
         public function getTime(){
             if ($this->minutes < 10){
                 return $this->hours .":0". $this->minutes;

@@ -6,6 +6,7 @@
         var $squaremeters = 0;
         var $generateOneSquareMeter = 0;
         var $powerGenerated = 0;
+        var $energytype = 'solarpark';
 
         public function setSolarpower($solarpower) {
             return $this->solarpower = $solarpower;

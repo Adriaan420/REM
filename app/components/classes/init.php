@@ -1,4 +1,6 @@
 <?php
+    include_once("randomizer.class.php");
+    include_once("myPDO.class.php");
     include_once("energysource.class.php");
     include_once("co2mitigation.class.php");
     include_once("coalpowerplant.class.php");
