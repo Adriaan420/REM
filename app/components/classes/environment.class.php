@@ -20,9 +20,9 @@
             return $this->windspeed = $windspeed;
         }
 
-        public function setTime($hours, $minutes){
+        public function setTime($hours){
             $this->setHours($hours);
-            $this->setMinutes($minutes);
+            //$this->setMinutes($minutes);
             return $this->getTime();
         }
 

@@ -1,6 +1,6 @@
 <?php
     include_once (".././classes/simulation_v1.php");
-    ?>
+?>
 <div ng-controller="SideMenu" class="container-fluid">
     <div class="row" style="height: 80px;">
         <div class="col-md-2"><a href="https://www.dnvgl.nl/">
@@ -39,10 +39,10 @@
     </div>
 
     <div class="row" style="height: 10%;">
-        <div class="col-md-3" style="display: flex;"></div>
-        <div class="col-md-3" style="display: flex;"></div>
+        <div class="col-md-6" style="display: flex;"></div>
         <div class="col-md-3" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="bottom"
+               uib-popover-html="'<table><tr><td>Opwekking windenergie: </td><td><?php echo $windpark->getPowerGenerated() ?> kWh</td></tr></table>'" popover-title="Wind kracht" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-3" style="display: flex;"></div>
     </div>
@@ -59,7 +59,7 @@
         <div class="col-md-8" style="display: flex;"></div>
         <div class="col-md-1"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="CO2 Mitigatie" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="CO2 Mitigatie" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2"></div>
     </div>
@@ -67,7 +67,7 @@
     <div class="row" style="height: 10%;">
         <div class="col-md-4" style="display: flex;"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Aardgas" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="bottom" uib-popover-html="'<table><tr><td>Opwekking aardgas: </td><td><?php echo $naturalgas->getEnergising()?> kWh</td></tr></table>'" popover-title="Aardgas" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-7"></div>
     </div>
@@ -75,7 +75,7 @@
     <div class="row" style="height: 10%;">
         <div class="col-md-10" style="display: flex;"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="left" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Kolencentrale" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="left" uib-popover-html="'<table><tr><td>Opwekking koolenergie: </td><td><?php echo $coalpowerplant->getEnergising() ?> kWh</td></tr></table>'" popover-title="Kolencentrale" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-1"></div>
     </div>
@@ -84,7 +84,7 @@
         <div class="col-md-5" style="display: flex;"></div>
         <div class="col-md-1"></div>
         <div class="col-md-1">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="bottom" uib-popover-html="'<?php echo $consumer->getTotalDemand() ?>'" popover-title="Consument" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="bottom" uib-popover-html="'<?php echo $consumer->getTotalDemand() ?>'" popover-title="Consument" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-5"></div>
     </div>
@@ -92,24 +92,26 @@
     <div class="row" style="height: 10%;">
         <div class="col-md-2" style="display: flex;"></div>
         <div class="col-md-2" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Kernenergie" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="top" uib-popover-html="'<table><tr><td>Opwekking Kernenergie:</td><td><?php echo $nuclearplant->getEnergising() ?> kWh</td></tr></table>'" popover-title="Kernenergie" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Energieopslag" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="top" uib-popover-html="'<table width=100%><tr><td>Energieopslag totaal:</td><td><?php echo $energystorage->getCapacityWind()+$energystorage->getCapacitySolar()?> kWh</td></tr>
+                                                                                                                    <tr><td>Windenergie: </td><td><?php echo $energystorage->getCapacityWind() ?> kWh</td><td><?php echo ($energystorage->getCapacityWind())/($energystorage->getCapacityWind()+$energystorage->getCapacitySolar())*100 ?> %</td></tr>
+                                                                                                                    <tr><td>Zonneenergie: </td><td><?php echo $energystorage->getCapacitySolar() ?> kWh</td><td><?php echo ($energystorage->getCapacitySolar())/($energystorage->getCapacityWind()+$energystorage->getCapacitySolar())*100 ?> %</td></tr></table>'" popover-title="Energieopslag" popover-trigger="'mouseenter'"></i>
         </div>
         <div class="col-md-2" style="display: flex;"></div>
         <div class="col-md-4" style="display: flex;">
-            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-placement="top" uib-popover-html="'<b>HTML</b>, <i>inline</i>'" popover-title="Zonnepark" popover-trigger="'mouseenter'"></i>
+            <i class="fa fa-info-circle fa-3x" aria-hidden="true" popover-class="increase-popover-size" popover-placement="top" uib-popover-html="'<table><tr><td>Opwekking zonne-energie:</td><td><?php echo $solarpark->getPowerGenerated()?> kWh</td></tr></table>'" popover-title="Zonnepark" popover-trigger="'mouseenter'"></i>
         </div>
     </div>
 
     <div class="row" style="height: 10%;">
         <div class="col-md-5" style="display: flex;"></div>
         <div class="col-md-2" style="display: flex;">
-            <button type="button"><i class="fa fa-play fa-2x" aria-hidden="true"></i></button>
-            <button type="button"><i class="fa fa-stop fa-2x" aria-hidden="true"></i></button>
-            <button type="button"><i class="fa fa-step-forward fa-2x" aria-hidden="true"></i></button>
-            <button type="button"><i class="fa fa-step-backward fa-2x" aria-hidden="true"></i></button>
+            <form method="post">
+                <input type="submit" value="<?php echo $enviroment->getHours() + 1; ?>" name="1">
+                <input type="submit" value="<?php echo $enviroment->getHours() - 1; ?>" name="-1">
+            </form>
         </div>
         <div class="col-md-5" style="display: flex;"></div>
     </div>
