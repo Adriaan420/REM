@@ -178,7 +178,7 @@
     echo "<tr><td>- Windenergie:</td><td>&euro; ". $windpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Windenergie totaal:</td><td>&euro; ". $windpark->getPowerGenerated() * $windpark->getPricekWh(). "</td></tr>";
     echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
-    */
+*/
 
     //Alles in de database zetten
     $database = new myPDO();
