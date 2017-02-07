@@ -2,7 +2,7 @@
     session_start();
     include_once("init.php");
 
-   // var_dump($_POST);
+   var_dump($_POST);
 
     //Alles random bepalen
     $random = new Randomizer();
@@ -79,7 +79,7 @@
     $energystorage->setCapacity(10000);
     $energystorage->setCapacityWind(500);
     $energystorage->setCapacitySolar(500);
-/*
+
     //Gegevens laten tonen voor berekeningen
     echo "<table border='0'>";
     echo "<tr><td>De totale vraag:</td><td>". $consumer->getTotalDemand(). "</td><td>kWh</td><td>100%</td></tr>";
@@ -108,7 +108,7 @@
     echo "</table>";
 
     echo "</br>";
-*/
+
     //Alles uitrekenen
     $coalpowerplant->calculateEnergising($consumer);
     $coalpowerplant->calculatePricekWh();
@@ -126,7 +126,7 @@
 
     $nuclearplant->calculateEnergising($consumer);
     $nuclearplant->calculatePricekWh();
-/*
+
     //Gegevens laten tonen na berekeningen
     echo "<table border='0'>";
     echo "<tr><td>Opwekking kool energie</td><td>". $coalpowerplant->getEnergising() ."</td><td>kWh</td><td>100%</td></tr>";
@@ -178,7 +178,7 @@
     echo "<tr><td>- Windenergie:</td><td>&euro; ". $windpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Windenergie totaal:</td><td>&euro; ". $windpark->getPowerGenerated() * $windpark->getPricekWh(). "</td></tr>";
     echo "<tr><td>- Zonne-energie:</td><td>&euro; ". $solarpark->getPricekWh(). "</td><td>per kWh</td><td>&nbsp&nbsp&nbsp</td><td>Zonne-energie totaal:</td><td>&euro; ". $solarpark->getPowerGenerated() * $solarpark->getPricekWh(). "</td></tr>";
     echo "</table>";
-*/
+
 
     //Alles in de database zetten
     $database = new myPDO();
@@ -269,8 +269,7 @@
 
     $result = $stmt->fetchAll();
 ?>
-<!--
+
 <form method="post">
     <input type="submit" class="fa fa-play fa-5x" name="1">
 </form>
--->
