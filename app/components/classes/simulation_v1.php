@@ -11,15 +11,14 @@
     $enviroment = new Environment();
 
     if (isset($_POST['1'])) {
-        $enviroment->setTime(($_POST["1"] % 24), 00);
-        $random->setTemperature($_SESSION['temp']);
-    }
 
-    if (isset($_POST["-1"])){
-        if ($_POST["-1"] < 0){
-            $_POST["-1"] = $_POST["-1"] + 24;
+        if(isset($_SESSION['time'])) {
+            $_SESSION['time'] = $_SESSION['time'] + $_POST['1'];
         }
-        $enviroment->setTime($_POST["-1"], 00);
+        else{
+            $_SESSION['time'] = $_POST['1'];
+        }
+        $enviroment->setTime(($_SESSION['time'] % 24), 00);
         $random->setTemperature($_SESSION['temp']);
     }
 
@@ -33,7 +32,15 @@
 
     $random->randomizeWindspeed();
 
-    $random->setTotalDemand(10000);
+    if($enviroment->getHours() == 0) {
+        $random->setTotalDemand(10000);
+        $_SESSION['total'] = $random->getTotalDemand();
+    }
+    else{
+        $random->setTotalDemand($_SESSION['total']);
+    }
+    $random->randomizeTotalDemand($enviroment);
+    $_SESSION['total'] = $random->getTotalDemand();
     $random->setCoalDemand(30);
     $random->setSolarDemand(5);
     $random->setWindDemand(10);
@@ -268,8 +275,10 @@
     $stmt->execute();
 
     $result = $stmt->fetchAll();
+
+    //session_destroy();
 ?>
 
 <form method="post">
-    <input type="submit" class="fa fa-play fa-5x" name="1">
+    <input type="submit" class="fa fa-play fa-5x" name="1" value="1">
 </form>

@@ -279,30 +279,26 @@
 
         public function randomizeTotalDemand(Environment $enviroment){
 
-            //$min = $this->getTotalDemand() - 1000;
-
-            //$max = $this->getTotalDemand() + 1000;
-
             switch($enviroment->getHours()){
                 case 0:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.15);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.15);
                     break;
                 case 1:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.10);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.10);
                     break;
                 case 2:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.10);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.10);
                     break;
                 case 3:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.10);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.10);
                     break;
                 case 4:
                     $min = $this->getTotalDemand();
@@ -322,27 +318,27 @@
                 case 7:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.05);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.05);
                     break;
                 case 8:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.10);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.10);
                     break;
                 case 9:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.20);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.20);
                     break;
                 case 10:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.15);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.15);
                     break;
                 case 11:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.05);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.05);
                     break;
                 case 12:
                     $min = $this->getTotalDemand();
@@ -357,7 +353,7 @@
                 case 14:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.05);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.05);
                     break;
                 case 15:
                     $min = $this->getTotalDemand();
@@ -372,12 +368,12 @@
                 case 17:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.20);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.20);
                     break;
                 case 18:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() + ($this-$this->getTotalDemand() * 0.20);
+                    $max = $this->getTotalDemand() + ($this->getTotalDemand() * 0.20);
                     break;
                 case 19:
                     $min = $this->getTotalDemand();
@@ -392,19 +388,23 @@
                 case 21:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.15);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.15);
                     break;
                 case 22:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.15);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.15);
                     break;
                 case 23:
                     $min = $this->getTotalDemand();
 
-                    $max = $this->getTotalDemand() - ($this-$this->getTotalDemand() * 0.15);
+                    $max = $this->getTotalDemand() - ($this->getTotalDemand() * 0.15);
                     break;
             }
+            echo "</br> ";
+            echo $min;
+            echo "</br> ";
+            echo $max;
 
             //if($max >= 10000){
                 //$max = 10000;
